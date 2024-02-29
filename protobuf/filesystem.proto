@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+message Filename{
+    int32 id = 1;
+    string name = 2;
+}
+
+message Response{
+    string message = 1;
+
+}
+
+service FileSystem{
+    rpc Upload(Filename) returns (Response) {}
+    rpc Download(Filename) returns (Response) {}
+
+}

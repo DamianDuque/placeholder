@@ -1,0 +1,34 @@
+version: "3.8"
+
+services:
+  central_server:
+    build:
+      context: ./central_server
+    command: air
+    env_file:
+      - central_server/.env
+    expose:
+      - 8000
+    ports:
+      - 8000:8000
+    volumes:
+      - ./central_server:/app
+    networks:
+      - reto-1
+
+  peer-1:
+    build:
+      context: ./peer
+    command: python main.py
+    env_file:
+      - ./peer/.env
+    volumes:
+      - ./peer:/app
+    networks:
+      - reto-1
+    depends_on:
+      - central_server
+
+
+networks:
+  reto-1:
